@@ -14,12 +14,9 @@ public class APIService {
     private String token;
     public String getAIResponse(String prompt) {
         OpenAiService service = new OpenAiService(token);
-        List<String> stopSequence = new ArrayList<>();
-        stopSequence.add("\n");
         CompletionRequest completionRequest = CompletionRequest.builder()
                 .prompt(prompt)
                 .model("text-davinci-003")
-                .stop(stopSequence)
                 .build();
         String response = service.createCompletion(completionRequest).getChoices().get(0).getText();
         return response;
