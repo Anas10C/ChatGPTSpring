@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "release-spring"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "spring-selector"
+  template:
+    metadata:
+      labels:
+        app: "spring-selector"
+    spec:
+      containers:
+        - name: springboot
+          securityContext:
+          image: "{{ .Values.springbackend.image.repository }}:{{ .Values.springbackend.image.tag }}"
+          imagePullPolicy: {{ .Values.springbackend.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP

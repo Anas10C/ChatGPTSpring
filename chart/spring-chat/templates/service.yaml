@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "release-spring"
+spec:
+  type: {{ .Values.springbackend.service.type }}
+  ports:
+    - port: {{ .Values.springbackend.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: "spring-selector"
